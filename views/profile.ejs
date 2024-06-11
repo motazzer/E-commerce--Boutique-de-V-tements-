@@ -1,0 +1,139 @@
+<%- include('parts/top.ejs') %>
+
+<style>
+  .profile-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    transition: transform 0.3s;
+  }
+
+  .profile-container:hover .profile-image {
+    transform: scale(1.05);
+  }
+
+  .edit-profile-btn {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s;
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 16px;
+  }
+
+  .profile-container:hover .edit-profile-btn {
+    opacity: 1;
+  }
+  
+  .edit-profile-btn i {
+    margin-right: 5px;
+  }
+</style>
+
+<br>
+<br>
+<br>
+<div class="container-fluid py-1 h-200">
+  <div class="row">
+    <div class="card">
+      <div class="rounded-top text-white d-flex flex-row" style="background-image: url('/uploads/profileback.jpg'); background-size: cover; height:200px;">
+        <div class="ms-4 mt-5 d-flex flex-column position-relative profile-container" style="width: 150px; margin-top: 50px;">
+          <% if(user.image){ %>
+          <div class="position-relative">
+            <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image" href="/uploads/<%= user.image %>" class="item-thumb">
+              <img src="/uploads/<%= user.image %>" alt="Profile image" class="img-fluid img-thumbnail rounded-circle profile-image">
+            </a>
+              <a href="profile/update/<%= user._id %>" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
+                style="z-index: 1;">
+                  <i class="fas fa-edit"></i> Edit profile
+              </a>
+          </div>
+          
+          <% } else { %>
+          <div class="position-relative">
+              <img src="/uploads/emptyphoto.jpg" alt="Profile image" class="img-fluid img-thumbnail rounded-circle profile-image">
+              <a href="profile/update/<%= user._id %>" class="btn btn-tertiary position-absolute start-50 translate-middle-x edit-profile-btn" style="bottom: 0;" data-mdb-ripple-color="light">
+                  <i class="fas fa-edit"></i> Edit profile
+              </a>
+          </div>
+          <% } %>
+      </div>
+      
+
+        <div class="ms-3" style="margin-top: 140px;">
+          <h5><%= user.firstName %> <%= user.lastName %></h5>
+          <% if(user.city){ %>
+            <h6>From <%= user.city %></h6>
+          <% } else { %>
+            <h6><%= user.city %></h6>
+          <% } %>
+        </div>
+      </div>
+      <br>
+            <br>
+            <div class="card-body p-4 text-black">
+                    <div class="d-flex justify-content-around">
+                      <ul class="list-unstyled m-0">
+                        <li class="mb-2"><a href="profile/addproduct" class="btn btn-success">Add Product</a></li>
+                          <li class="mb-2"><a href="profile/addproduct" class="btn btn-success">dashboard</a></li>
+                      </ul>    
+                    </div>
+              <br>
+              <br>
+            </div>
+            <section style="background-color: #eee;">
+              <div class="container py-5">
+                <% for(let article of articles){ %>
+                <div class="row justify-content-center mb-3">
+                  <div class="col-md-12 col-xl-10">
+                    <div class="card shadow-0 border rounded-3">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                            <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                              <img src="uploads/<%= article.image%>" class="w-100" />
+                              
+                              <a href="/products/<%= article.name %>/<%= article._id %>">
+                                <div class="hover-overlay">
+                                  <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
+                                </div>
+                              </a>
+                            </div>
+                          </div>
+                          <div class="col-md-6 col-lg-6 col-xl-6">
+                            <h5><%= article.name %></h5>
+                            <p class="text-truncate mb-4 mb-md-0"><%= article.description %></p>
+                          </div>
+                          <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                            <div class="d-flex flex-row align-items-center mb-1">
+                              <h4 class="mb-1 me-1"><%= article.price %></h4>
+                              <span class="text-danger"><s>$21.99</s></span>
+                            </div>
+                            <form method="post" action="/profile/deleteproduct/<%= article._id%>">
+                              <div class="d-flex flex-column mt-4">
+                                <a href="/profile/editproduct/<%= article._id %>" class="btn btn-primary btn-sm" type="button">Edit</a>
+                                <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <% } %>
+              </div>
+            </section>
+    </div>
+  </div>
+</div>
+
+
+<%- include('parts/bottom.ejs') %>
+

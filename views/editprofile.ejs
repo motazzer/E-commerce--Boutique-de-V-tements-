@@ -1,0 +1,55 @@
+<%- include('parts/top.ejs')%>
+
+
+
+
+<section class="text-center">
+
+    <div class="p-5 bg-image" style="
+          background-image: url('/uploads/profileback.jpg');
+          height: 300px;
+          "></div>
+
+  
+    <div class="card mx-4 mx-md-5 shadow-5-strong" style="
+          margin-top: -100px;
+          background: hsla(0, 0%, 100%, 0.8);
+          backdrop-filter: blur(30px);
+          ">
+      <div class="card-body py-5 px-md-5">
+  
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-8">
+            <h2 class="fw-bold mb-5">Edit Your Profile</h2>
+            <form method="post" action="/profile/update/<%= user._id%>" enctype="multipart/form-data">
+            <div class="form">
+                <input type="text" id="form2Example17" name="firstName" class="form-control form-control-lg" value="<%= user.firstName %>"/>
+            </div>
+            <br>
+            <div class="form">
+                <input type="text" id="form2Example27" name="lastName" class="form-control form-control-lg" value="<%= user.lastName %>"/>
+            </div>
+            <br>
+            <div class="form">
+                <input type="text" id="form2Example27" name="City" class="form-control form-control-lg" value="<%= user.city %>"/>
+            </div>
+            <br>
+            <div class="form-group">
+              <label>Image</label>
+              <input type="file" name="image" class="form-control">
+            </div>
+            <br>
+              <% if(smessage){ %><div class="alert alert-success"><%= smessage %></div><% } %>
+              <% if(emessage){ %><div class="alert alert-danger"><%= emessage %></div><% } %>
+            <br> 
+            <div class="pt-1 mb-4">
+                <button class="btn btn-success btn-lg btn-block" type="submit">Update</button>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<%- include('parts/bottom.ejs')%>

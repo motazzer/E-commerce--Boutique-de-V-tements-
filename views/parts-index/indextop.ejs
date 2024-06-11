@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.1/mdb.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/font-awesome.css">
+    <link rel="stylesheet" href="/css/templatemo-hexashop.css">
+    <link rel="stylesheet" href="/css/owl-carousel.css">
+    <link rel="stylesheet" href="/css/lightbox.css">
+    <title>SHOP</title>
+</head>
+<body>
+ 
+   <div id="preloader">
+        <div class="jumper">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>    
+
+<header class="header-area header-sticky">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <a href="/" class="logo">
+                        <img src="/images/logo.png">
+                    </a>
+                    <ul class="nav">
+                        <% if(verifuser){ %>
+                        <li class="submenu">
+                            <a href="javascript:;">Categories</a>
+                                <ul>
+                                <% for(let category of categories){ %>
+                                   <li><a href="/categories/<%= category._id %>"><%= category.name%></a></li>
+                                <%}%>
+                                </ul>
+                            </li>
+                        <li><a href="/products">All products</a></li>
+                        <li><a href="/profile">Profile</a></li>
+                        
+                        <form method="POST" action="/logout">
+                            <button class="btn btn-danger" type="submit">Logout</button>
+                        </form>
+                        <% }else{ %>
+                        <li class="scroll-to-section"><a href="/about">About Us</a></li>
+                        <li class="scroll-to-section"><a href="/contact">Contact Us</a></li>
+                        <li class="scroll-to-section"><a href="/login">login</a></li>
+                        <li class="scroll-to-section"><a href="/registre">registre</a></li>
+                        <% } %>
+                        
+                    </ul>    
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>

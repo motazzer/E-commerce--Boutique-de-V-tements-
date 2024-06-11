@@ -1,0 +1,77 @@
+<%- include('parts/top.ejs')%>
+
+<section class="text-center">
+  <div class="p-5 bg-image" style="
+        background-image: url('/uploads/profileback.jpg');
+        height: 300px;
+        "></div>
+  <div class="card mx-4 mx-md-5 shadow-5-strong" style="
+        margin-top: -100px;
+        background: hsla(0, 0%, 100%, 0.8);
+        backdrop-filter: blur(30px);
+        ">
+    <div class="card-body py-5 px-md-5">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-8">
+          <h2 class="fw-bold mb-5">Edit Product</h2>
+          <form method="post" action="/profile/editproduct/<%= article._id%>" enctype="multipart/form-data">
+            <div class="row">
+              <div class="col-md-6 mb-4">
+                <div class="form">
+                  <input type="text" name="name" id="form3Example1" class="form-control" value="<%= article.name %>" />
+                </div>
+              </div>
+              <div class="col-md-6 mb-4">
+                <div class="form">
+                  <input type="number" name="price" id="form3Example2" class="form-control" value="<%= article.price %>"/>
+                </div>
+              </div>
+            </div>
+
+            <div class="form mb-4">
+              <textarea id="form3Example3" name="description" class="form-control" rows="4" ><%= article.description %></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Image</label>
+              <input type="file" name="image" class="form-control">
+            </div>
+
+            <br>
+            <br>
+            
+            <div class="form-group">
+              <label for="category">Category:</label>
+              <select class="form-control" id="category" name="category" required>
+                <% for (let category of categories) { %>
+                  <option value="<%= category._id %>"><%= category.name %></option>
+                <% } %>
+              </select>
+            </div>
+            
+            
+            <br>
+            
+            <% if(smessage){ %>
+              <div class="alert alert-success">
+                <%= smessage %>
+              </div>
+            <% } %>
+            <% if(emessage){ %>
+              <div class="alert alert-danger">
+                <%= emessage %>
+              </div>
+            <% } %>
+            
+            <br>
+            
+            <button type="submit" class="btn btn-primary btn-block mb-4">Update</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    
+<%- include('parts/bottom.ejs')%>
